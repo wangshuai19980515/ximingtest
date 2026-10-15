@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>五子棋 · 黑白对弈</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <h1 class="title">五 子 棋</h1>
+      <p class="subtitle">黑 · 白 对 弈</p>
+    </header>
+
+    <main class="board-frame">
+      <div id="hud" class="hud" aria-live="polite">轮到黑方落子</div>
+      <canvas id="board" width="480" height="480" tabindex="0"
+              aria-label="五子棋棋盘，点击交叉点落子，方向键移动光标，回车或空格落子"></canvas>
+      <div class="controls">
+        <button id="restart" type="button" class="btn">重新开始</button>
+      </div>
+    </main>
+
+    <footer class="footnote">黑方先行 · 五子连珠即胜</footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

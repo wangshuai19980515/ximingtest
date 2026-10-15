@@ -1,0 +1,186 @@
+/* 复古五子棋页面样式 —— 羊皮纸 / 木纹 / 衬线字体 */
+
+:root {
+  --paper: #e8d5a8;
+  --paper-dark: #d9b98c;
+  --wood: #7a5230;
+  --wood-dark: #5b4636;
+  --ink: #3a2c1e;
+  --black-stone: #1d1d1d;
+  --white-stone: #f3ead8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  font-family: Georgia, "Songti SC", "SimSun", "Times New Roman", serif;
+  background-color: #4a3728;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.10) 0,
+      rgba(0, 0, 0, 0.10) 1px,
+      transparent 1px,
+      transparent 6px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.04) 0,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    linear-gradient(135deg, #5a4230 0%, #3f2f22 100%);
+  padding: 32px 16px;
+}
+
+.page {
+  text-align: center;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.masthead {
+  margin-bottom: 20px;
+}
+
+.title {
+  margin: 0;
+  font-size: 44px;
+  letter-spacing: 0.35em;
+  color: var(--paper);
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+.subtitle {
+  margin: 6px 0 0;
+  font-size: 16px;
+  letter-spacing: 0.6em;
+  color: #c9b389;
+}
+
+.board-frame {
+  display: inline-block;
+  width: 544px; /* 480 棋盘 + 左右内边距 26×2 + 边框 6×2 */
+  max-width: 100%;
+  padding: 22px 26px 24px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.08) 0,
+      rgba(0, 0, 0, 0.08) 2px,
+      transparent 2px,
+      transparent 26px
+    ),
+    linear-gradient(180deg, #8a5c35 0%, #6d4526 100%);
+  border: 6px solid var(--wood-dark);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 235, 190, 0.25),
+    0 14px 30px rgba(0, 0, 0, 0.5);
+}
+
+.hud {
+  margin: 0 auto 14px;
+  padding: 8px 18px;
+  display: inline-block;
+  font-size: 20px;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+  background-color: var(--paper);
+  border: 2px solid var(--wood-dark);
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.15);
+}
+
+#board {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(rgba(122, 82, 48, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, #e8d5a8 0%, #f0e0b8 50%, #dfc894 100%);
+  border: 3px solid var(--wood-dark);
+  border-radius: 4px;
+  cursor: crosshair;
+  outline: none;
+}
+
+#board:focus-visible {
+  box-shadow: 0 0 0 3px rgba(233, 213, 168, 0.7);
+}
+
+.controls {
+  margin-top: 16px;
+}
+
+.btn {
+  padding: 10px 26px;
+  font-family: Georgia, "Songti SC", "SimSun", serif;
+  font-size: 18px;
+  letter-spacing: 0.2em;
+  color: var(--ink);
+  background-color: var(--paper-dark);
+  border: 2px solid var(--wood-dark);
+  border-radius: 4px;
+  box-shadow: 0 3px 0 var(--wood-dark), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+  transition: transform 0.05s ease, box-shadow 0.05s ease;
+}
+
+.btn:hover {
+  background-color: #ecd9a5;
+}
+
+.btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--wood-dark), inset 0 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.footnote {
+  margin-top: 16px;
+  font-size: 14px;
+  letter-spacing: 0.3em;
+  color: #c9b389;
+}
+
+/* 小屏响应式：棋盘等比缩小，压缩标题与留白 */
+@media (max-width: 600px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  .title {
+    font-size: 30px;
+    letter-spacing: 0.28em;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .board-frame {
+    padding: 16px 14px 18px;
+    border-width: 4px;
+  }
+
+  .btn {
+    padding: 9px 20px;
+    font-size: 16px;
+  }
+}
