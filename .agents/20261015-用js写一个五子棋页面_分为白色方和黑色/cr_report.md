@@ -88,7 +88,7 @@
 - **合并建议**：通过（无阻断项）
 - **P0**：无
 - **P1**：无
-- **P2**：1. `app.js:191/195-199/183` 魔法数字建议常量化；2. `app.js:18-19` + `app.js:274-280` canvas 设 `tabindex=0`/`aria-label` 但未提供键盘落子处理，可访问性不完整；3. `style.css:105-108` 棋盘固定 480px，无小屏响应式适配；4. `app.js` ES5 `var` vs 系分自述「ES6 语法」的声明一致性
+- **P2**：1. `app.js:191/195-199/183` 魔法数字建议常量化 ✅ 已修复；2. `app.js` canvas 无键盘落子处理，可访问性不完整 ✅ 已修复（方向键+回车/空格）；3. `style.css` 棋盘固定 480px，无小屏响应式适配 ✅ 已修复（aspect-ratio 等比缩放 + 媒体查询）；4. `app.js` ES5 `var` vs 系分自述「ES6 语法」声明一致性 ✅ 已修复（全量 const/let）
 - **一句话**：纯前端零依赖五子棋实现，规则/边界/渲染逻辑正确，无功能性缺陷与安全隐患，仅存轻微风格与可访问性改进点。
 
 ---
@@ -158,7 +158,24 @@ L117|}
 
 ### P2（可选）
 
-- [ ] **P2** `app.js:191` — 将棋子半径系数、渐变/阴影偏移（`0.42/0.35/1.5/2/0.1`）提为命名常量。
-- [ ] **P2** `app.js:274` — 为 `tabindex=0` 的 canvas 补充键盘（方向键移动 + 回车/空格落子）支持或移除 tabindex。
-- [ ] **P2** `style.css:107` — 为棋盘增加小屏缩放（如 `max-width:100%` + 等比缩放）适配。
-- [ ] **P2** `app.js` 全文 — 可选：与 `design.md` §1.3「ES6 语法」声明对齐（改用 `let/const`），或修正设计文档声明。
+- [x] **P2** `app.js` — 魔法数字已常量化：`STONE_RADIUS_RATIO/GRADIENT_HIGHLIGHT_RATIO/GRADIENT_INNER_RATIO/SHADOW_OFFSET_X/Y/STAR_RADIUS/LAST_MOVE_MARK_RATIO/CURSOR_*` + `COLORS` 配色对象。
+- [x] **P2** `app.js` — canvas 已补充键盘落子：方向键（clamp 边界保护）移动光标 + 回车/空格落子 + 复古红棕光标环，并更新 `aria-label`。
+- [x] **P2** `style.css` — 棋盘改 `width:100% + aspect-ratio:1/1` 等比缩放，`.board-frame` `max-width:100%`，新增 `@media (max-width:600px)` 小屏样式适配。
+- [x] **P2** `app.js` — 全量 `var` 切换为 `const/let`，与 `design.md` §1.3 ES6 声明对齐。
+
+---
+
+## 9. 修复验证记录
+
+> 本节点（stage: review → 问题修复）闭环上述 4 项 P2。验证运行时为纯 `python3`（无 node/bun/deno）。
+
+| 验证项 | 结果 | 证据/说明 |
+|--------|:----:|-----------|
+| 括号/引号/注释配平 | ✅ | 自写平衡扫描脚本：`app.js` / `style.css` 0 errors |
+| HTML 标签配平 | ✅ | 扫描 `index.html`：标签栈空，无可配对错误 |
+| ES6 对齐 | ✅ | `app.js` 无 `var `、`const=51` `let=14` |
+| 无调试残留 | ✅ | 无 `console.` |
+| 关键逻辑静态推演 | ✅ | SIZE=15、四方向向量、`count>=5`、满盘 `SIZE*SIZE`、键盘 Enter/空格落子、`textContent`（无 XSS） |
+| L2 JS 运行时编译 | ⚠️ 跳过 | 环境无 node/bun/deno，按降级协议执行静态审查 |
+
+**待人工验证命令**：`python3 -m http.server 8000` 后浏览器打开 `http://localhost:8000`，验证键盘落子与小屏缩放。

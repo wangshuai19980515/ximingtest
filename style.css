@@ -49,6 +49,8 @@ body {
 
 .page {
   text-align: center;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .masthead {
@@ -72,6 +74,8 @@ body {
 
 .board-frame {
   display: inline-block;
+  width: 544px; /* 480 棋盘 + 左右内边距 26×2 + 边框 6×2 */
+  max-width: 100%;
   padding: 22px 26px 24px;
   background:
     repeating-linear-gradient(
@@ -104,8 +108,9 @@ body {
 
 #board {
   display: block;
-  width: 480px;
-  height: 480px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
   background-color: var(--paper);
   background-image:
     radial-gradient(rgba(122, 82, 48, 0.12) 1px, transparent 1px),
@@ -152,4 +157,30 @@ body {
   font-size: 14px;
   letter-spacing: 0.3em;
   color: #c9b389;
+}
+
+/* 小屏响应式：棋盘等比缩小，压缩标题与留白 */
+@media (max-width: 600px) {
+  body {
+    padding: 20px 12px;
+  }
+
+  .title {
+    font-size: 30px;
+    letter-spacing: 0.28em;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  .board-frame {
+    padding: 16px 14px 18px;
+    border-width: 4px;
+  }
+
+  .btn {
+    padding: 9px 20px;
+    font-size: 16px;
+  }
 }
